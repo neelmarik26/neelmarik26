@@ -1,0 +1,181 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be Mine? 💖</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: #ffe6f2;
+            transition: background 0.3s;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: #d63384;
+            margin-bottom: 20px;
+        }
+
+        #nameInput {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 2px solid #ff1493;
+            border-radius: 8px;
+        }
+
+        #proposalSection {
+            display: none;
+        }
+
+        .buttons {
+            position: relative;
+            margin-top: 30px;
+            min-height: 100px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #yesBtn {
+            background: #ff1493;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+        }
+
+        #noBtn {
+            background: #808080;
+            color: white;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: all 0.5s ease-in-out;
+        }
+
+        #loveMessage {
+            font-size: 24px;
+            color: #ffffff;
+            display: none;
+            margin-top: 20px;
+            background: #ff1493;
+            padding: 20px 40px;
+            border-radius: 15px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .persuasion-text {
+            color: #ff1493;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="nameSection">
+            <h1>Enter Your Name, Beautiful 😊</h1>
+            <input type="text" id="nameInput" placeholder="Your name here...">
+            <button onclick="submitName()">Submit</button>
+        </div>
+
+        <div id="proposalSection">
+            <h1 id="proposalText"></h1>
+            <div class="buttons">
+                <button id="yesBtn" onclick="acceptProposal()">YES! 💖</button>
+                <button id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">NO 😢</button>
+            </div>
+            <p class="persuasion-text" id="persuasionText"></p>
+        </div>
+
+        <div id="loveMessage">💖 LOVE YOU BABY! 💖</div>
+    </div>
+
+    <script>
+        function submitName() {
+            const name = document.getElementById('nameInput').value;
+            if (name.trim()) {
+                document.getElementById('nameSection').style.display = 'none';
+                document.getElementById('proposalSection').style.display = 'block';
+                document.getElementById('proposalText').innerHTML = 
+                    `Will you be mine forever, ${name}? 💖`;
+            }
+        }
+
+        function moveNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            const buttonsContainer = document.querySelector('.buttons');
+            const persuasionTexts = [
+                "Are you sure? 😢",
+                "Please reconsider! 💔",
+                "Don't break my heart! 😭",
+                "Give me a chance! 💖",
+                "I'll never give up! 😤",
+                "You're breaking my heart 💔",
+                "I'll keep asking forever! 💘",
+                "My love is endless! 💞",
+                "Please say yes! 🥺",
+                "I'm not taking no for an answer! 😠"
+            ];
+            
+            // Calculate available movement space
+            const maxX = buttonsContainer.offsetWidth - noBtn.offsetWidth;
+            const maxY = buttonsContainer.offsetHeight - noBtn.offsetHeight;
+            
+            // Generate random positions
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            
+            // Apply new positions
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
+
+            // Update persuasion text
+            const randomIndex = Math.floor(Math.random() * persuasionTexts.length);
+            document.getElementById('persuasionText').innerHTML = persuasionTexts[randomIndex];
+        }
+
+        function acceptProposal() {
+            document.getElementById('proposalSection').style.display = 'none';
+            document.getElementById('loveMessage').style.display = 'block';
+            document.body.style.background = '#ff1493';
+            
+            // Add celebration effect
+            const hearts = ['💖', '💕', '💞', '💓', '💗'];
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.animation = 'float 3s linear';
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 3000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
